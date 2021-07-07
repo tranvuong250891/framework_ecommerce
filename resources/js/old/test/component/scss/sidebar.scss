@@ -1,0 +1,26 @@
+.ctn-sidebar {
+    height: 120vh;
+    .item {
+        [icon] {
+            height: var(--height-menu);
+            justify-content: flex-start;
+            border: 1px solid var(--bg-b);
+            &:hover {
+                background: var(--bg-c);
+                color: var(--text-c);
+            }
+            span {
+                overflow: hidden;
+                width: 12em;
+                // border: 1px solid;
+                padding-left: 2em;
+                transition: all 0.1s;
+                height: 1em;
+            }
+        }
+        hr {
+            width: 100%;
+            margin: var(--margin) 0;
+        }
+    }
+}
