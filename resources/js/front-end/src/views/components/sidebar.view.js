@@ -6,7 +6,7 @@ sidebarEl.id = 'sidebar'
 
 
 export default () => {
-  sidebarEl.innerHTML = html`
+  sidebarEl.innerHTML = `
         <sidebar id="sidebar" class="">
     
         <div class="ctn-sidebar">
@@ -52,13 +52,14 @@ export default () => {
             >
               Copyright
             </div>
+            <a url="/news">
             <div
               onclick="activeFont(this, 'sidebar-item')"
               class="sidebar-item"
               icon="today"
             >
               Tin Tuc
-            </div>
+            </div></a>
             <hr />
 
             <div
@@ -88,6 +89,27 @@ export default () => {
     elActive.classList.add("font-active")
 
   }
+  sidebarEl.querySelectorAll('[icon]').forEach((icon) => {
+    let i = document.createElement('I')
+    let text = document.createElement('SPAN')
+    let fontSize = parseFloat(window.getComputedStyle(icon).fontSize)
+    text.innerText = icon.innerText.trim()
+    icon.innerHTML = null
+    i.innerText = icon.getAttribute('icon')
+    i.classList.add('material-icons')
+    i.style.fontSize = `${fontSize + (fontSize / 16) * 8}px`
+    icon.appendChild(i)
+    if (text.innerText) { icon.appendChild(text) }
+    icon.onmousedown = (e) => {
+      e.preventDefault()
+      icon.classList.add('down')
+      icon.classList.remove('up')
+      window.onmouseup = () => {
+        icon.classList.remove('down')
+        icon.classList.add('up')
+      }
+    }
+  })
 
 
 

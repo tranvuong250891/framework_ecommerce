@@ -1,18 +1,20 @@
 import { html } from "../../lib/html";
 import { productdetail } from "./product/productdetail";
+import { loadding } from "../loadding/loadding";
+import { pageLoadding } from "../loadding/pageLoadding";
 
 const contentEl = document.createElement('div')
 contentEl.id = 'content'
 
-export default (data) => {
+export default async (data) => {
+    contentEl.innerHTML = `<div class="ctn-content"></div>`
+
     // console.log(data)
-    contentEl.innerHTML = `
-        <div class="ctn-content">
-            <div class="ctn-product">
-                <h1 class="name-title">danh muc adasd hang1</h1>
-                ${data}
-            </div>
-        </div> `
+
+    data = await data
+
+
+    data && contentEl.querySelector('.ctn-content').appendChild(data)
 
     return contentEl
 }

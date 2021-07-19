@@ -1,42 +1,21 @@
-import { first } from 'lodash'
-import html from '../lib/html'
+import { api } from '../lib/callApi'
+import createEl from '../lib/createEl'
 import app from '../views/app.view'
 import { productdetail } from '../views/components/product/productdetail'
+import { loadding } from '../views/loadding/loadding'
 import '../views/scss/content.scss'
-
-
-const api = async () => {
-    const res = await fetch('/api/product/show', {
-        method: 'POST',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
-        body: JSON.stringify()
-    })
-    return res.json()
-
-}
-
-const data = { ram: '8GB', cpu: "core5" }
-
-
-// (api().then(res => { return console.log(res) }))
+import { pageLoadding } from '../views/loadding/pageLoadding'
 
 export const ProductController = async () => {
-    const res = await api()
-
-    const test = res.response.reduce((data, product) => {
-        data = typeof data === 'object' ? productdetail(data) : data
-        return productdetail(product) + data
-    })
-
-
-    app({ data: test })
-
+    const ctnProduct = createEl({ classNames: ['ctn-product'] })
+    loadding(ctnProduct)
+    app({ data: pageLoadding() })
+    const res = await api({ url: '/api/product/show' })
+    ctnProduct.innerHTML = `<h1 class="name-title">Danh muc san pham</h1>
+        ${res.response
+            .map(product => productdetail({ ...product }))
+            .reduce((firstProduct, product) => firstProduct + product)}`
+    await app({ data: ctnProduct })
     document.querySelector('#sidebar .product div').classList.add('font-active')
-
     return 'ProductController'
 }

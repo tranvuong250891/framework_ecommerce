@@ -1,6 +1,8 @@
 <?php
+
 namespace app\core;
-class Session 
+
+class Session
 {
     public const TOKEN = 'token';
     public  $hashToken = false;
@@ -14,20 +16,19 @@ class Session
     }
 
     public function validateToken(string $token)
-    {  
+    {
         $this->get(self::TOKEN);
-        return  password_verify($this->get(self::TOKEN), $token) ;
+        return  password_verify($this->get(self::TOKEN), $token);
     }
 
     public function validateUser($user)
     {
-        $this->get(self::USER) ;
+        $this->get(self::USER);
     }
 
     public function get(string $key)
-    {  
+    {
         return $_SESSION[$key] ?? false;
-
     }
 
     public function set(string $key, $value)
@@ -42,9 +43,13 @@ class Session
 
     public function token()
     {
-        if(!$this->get(self::TOKEN)){ $this->set(self::TOKEN, rand(0, 10000)); }
+        if (!$this->get(self::TOKEN)) {
+            $this->set(self::TOKEN, rand(0, 10000));
+        }
         $this->hashToken = password_hash($this->get(self::TOKEN), PASSWORD_DEFAULT);
-        if(App::$app->request->path === '/token'){ die(($this->hashToken)); }
+        if (App::$app->request->path === '/token') {
+            die(json_encode($this->hashToken));
+        }
     }
 
     public function validateOneToken($token)
@@ -56,5 +61,4 @@ class Session
     {
         $this->set(self::USER, $user);
     }
-
 }

@@ -17,7 +17,17 @@
     }
     .nav-end {
         .nav-item {
-            margin-left: var(--margin);
+            // margin-left: var(--margin);
+            position: relative;
+            p {
+                position: absolute;
+                top: 0;
+                right: -10px;
+            }
+            &.cart {
+                // display: none;
+                margin: 0 2rem;
+            }
         }
         #checbox-change-theme {
             &[type="checkbox"] {
@@ -53,13 +63,18 @@
                 background-color: white;
             }
         }
+        .nav-show-img-user {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            display: none;
+            margin: 0;
+        }
     }
 }
 
 @media screen and (min-width: 1024px) {
     .ctn-nav {
-        [icon] {
-        }
         .nav-start {
             grid-column: 1/3;
             .nav-item {
@@ -98,9 +113,6 @@
             }
         }
         .nav-end {
-            .nav-item {
-                margin-left: var(--margin);
-            }
             #checbox-change-theme {
                 &[type="checkbox"] {
                     height: 0;

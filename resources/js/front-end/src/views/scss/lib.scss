@@ -27,11 +27,18 @@
         transition: all 0.3s;
     }
 }
+img {
+    width: 100%;
+}
 .img {
     background-size: 100% 100%;
     width: 2em;
     height: 2em;
 }
+a {
+    cursor: pointer;
+}
+
 .fl {
     display: flex;
     &.col {
@@ -104,11 +111,16 @@
 }
 
 .font-active {
-    background: var(--bg-active);
-    color: var(--text-active);
+    color: white;
+    background: var(--bg-a);
+    border: 1px solid var(--bg-a) !important;
+    border-radius: 20px 0 0 20px;
+    // color: var(--text-c);
+    width: 100%;
     &:hover {
-        background: var(--bg-active) !important;
-        color: var(--text-active) !important;
+        background: var(--bg-c);
+        color: var(--text-c);
+        border: 1px solid var(--bg-c) !important;
     }
 }
 
@@ -120,4 +132,50 @@
 
 .font-2 {
     font-size: 2em;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.choose {
+    border: 1px solid;
+    margin-right: 1rem;
+    padding: 1rem;
+    cursor: pointer;
+    &.active-span {
+        position: relative;
+        border: 1px solid var(--color-headings);
+        &::after {
+            position: absolute;
+            content: "\2714";
+            color: white;
+            bottom: 0;
+            right: 0;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            border-bottom: 25px solid var(--color-headings);
+            border-left: 25px solid transparent;
+
+            position: absolute;
+        }
+    }
 }

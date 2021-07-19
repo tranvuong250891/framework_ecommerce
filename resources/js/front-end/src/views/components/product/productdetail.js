@@ -4,10 +4,10 @@ import '../../scss/productdetail.scss'
 
 
 
-export const productdetail = ({ price, title, name, comment, star, option, img }) => {
+export const productdetail = ({ price, title, name, comment, star, option, img, id }) => {
 
     img = img && img.split(',') || ''
-    const html = `
+    const html = `<a url="/productdetail?product_id=${id}" product-id="${id}">
         <div id="product-detail" class="fl col">
             <div class="img-bg" style=" background-image: url('/img/${img[0]}');"></div>
             <span class="label tragop">tra gop 0%</span>
@@ -32,6 +32,7 @@ export const productdetail = ({ price, title, name, comment, star, option, img }
                 <h3>${price}<sup sup ></sup> đ</h3 >
             </div >
         </div >
+    </a>
     `
 
     return html

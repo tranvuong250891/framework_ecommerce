@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace app\controllers\apis;
 
@@ -21,24 +21,24 @@ class CartApi extends ControllerApi
         $this->productModel = new ProductModel();
         $this->session = App::$app->session;
         $this->id = $request->getBody()['id'] ?? false;
-        if($this->session->get('cart')){
+        if ($this->session->get('cart')) {
             $this->result = $this->session->get('cart');
         }
     }
 
-    public function actionsMiddle() : array
+    public function actionsMiddle(): array
     {
-        return [ 'token' => [], 'login' =>[] ];
+        return ['token' => [], 'login' => []];
     }
 
     public function setResult(): array
     {
-        foreach($this->result as $id => $data){
-            if( !is_integer($id) || !$id){
+        foreach ($this->result as $id => $data) {
+            if (!is_integer($id) || !$id) {
                 throw new NotFoundException('loi tham so id');
             }
-            $getModel = $this->productModel->findOne(['id'=> $id]);
-            if($getModel){
+            $getModel = $this->productModel->findOne(['id' => $id]);
+            if ($getModel) {
                 $this->result[$id]['name'] = $getModel['name'];
                 $this->result[$id]['price'] = $getModel['price'];
                 $this->result[$id]['id'] = $getModel['id'];
@@ -53,25 +53,27 @@ class CartApi extends ControllerApi
 
     public function store()
     {
-        $this->result[$this->id]['qty'] =  $this->qty ? 
-        ($this->qty + $this->result[$this->id]['qty']) : 
-        (1+ $this->result[$this->id]['qty']);
+        $this->result[$this->id]['qty'] =  $this->qty ?
+            ($this->qty + $this->result[$this->id]['qty']) : (1 + $this->result[$this->id]['qty']);
+    }
+
+    public function update()
+    {
+        $this->result[$this->id]['qty'] = $this->qty;
     }
 
     public function destroy()
     {
-        $this->session->set('cart', false) ;
+        $this->session->set('cart', false);
         $this->result = [];
     }
 
     public function delete()
     {
         unset($this->result[$this->id]);
-        
     }
 
     public function show()
     {
-
     }
 }

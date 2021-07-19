@@ -17,7 +17,7 @@ use app\core\Upload;
 //USER
 Router::post('/apiuser/login', [ApiUserController::class, 'login']);
 Router::post('/login', [UserController::class, 'login']);
-Router::post('/signin', [UserController::class, 'signin']);
+Router::post('/signup', [UserController::class, 'signin']);
 Router::get('/user', [UserController::class, 'user']);
 Router::get('/destroy', [UserController::class, 'destroy']);
 Router::get('/logingoogle', [UserController::class, 'google']);
@@ -25,16 +25,16 @@ Router::get('/logingoogle', [UserController::class, 'google']);
 
 
 //HOME
-Router::get('/home', [HomeController::class, 'index' ]);
-Router::get('/', [HomeController::class, 'index' ]);
-Router::get('/index.html', [HomeController::class, 'index' ]);
-Router::get('', [HomeController::class, 'index' ]);
-Router::get('/index.php', [HomeController::class, 'index' ]);
-Router::post('/home', [HomeController::class, 'index' ]);
-Router::post('/', [HomeController::class, 'index' ]);
-Router::post('/index.html', [HomeController::class, 'index' ]);
-Router::post('', [HomeController::class, 'index' ]);
-Router::post('/index.php', [HomeController::class, 'index' ]);
+Router::get('/home', [HomeController::class, 'index']);
+Router::get('/', [HomeController::class, 'index']);
+Router::get('/index.html', [HomeController::class, 'index']);
+Router::get('', [HomeController::class, 'index']);
+Router::get('/index.php', [HomeController::class, 'index']);
+Router::post('/home', [HomeController::class, 'index']);
+Router::post('/', [HomeController::class, 'index']);
+Router::post('/index.html', [HomeController::class, 'index']);
+Router::post('', [HomeController::class, 'index']);
+Router::post('/index.php', [HomeController::class, 'index']);
 
 //CART 
 Router::get('/cart/store', [CartController::class, 'store']);
@@ -64,7 +64,3 @@ Router::post('/attack', [TestController::class, 'index']);
 
 //DASHBOARD
 Router::get('/dashboard', [DashboardController::class, 'index']);
-
-
-
-

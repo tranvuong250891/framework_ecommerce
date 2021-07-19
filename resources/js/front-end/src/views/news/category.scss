@@ -1,0 +1,18 @@
+.category-item {
+    border: 1px solid;
+    padding: 1rem;
+    cursor: pointer;
+    &:hover {
+        box-shadow: 2px 2px 2px 2px;
+    }
+    .img {
+        width: 100%;
+        padding-top: 100%;
+        background-size: 100% 100%;
+    }
+    .name-category {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 1.5rem;
+    }
+}

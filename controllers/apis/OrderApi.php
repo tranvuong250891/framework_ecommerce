@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers\apis;
 
 use app\controllers\apis\CartApi;
@@ -23,7 +24,7 @@ class OrderApi extends ControllerApi
         $this->orderModel = new CartModel();
     }
 
-    public function actionsMiddle() : array
+    public function actionsMiddle(): array
     {
         return [];
     }
@@ -34,10 +35,12 @@ class OrderApi extends ControllerApi
     }
 
     public function index(Request $request, Response $response)
-    { 
+    {
         $data = $request->getBody();
-        if(!App::$app->session->get('cart')){ return $this->result[] = "cart null"; }
-        if($this->orderModel->validate($data)){
+        if (!App::$app->session->get('cart')) {
+            return $this->result[] = "cart null";
+        }
+        if ($this->orderModel->validate($data)) {
             $this->orderModel->_save();
             App::$app->session->set('cart', false);
             $this->result[] = 'don hoang da duoc nhan';
@@ -57,21 +60,34 @@ class OrderApi extends ControllerApi
         $orderModel = new OrderModel();
         $code = $request->getBody()['code'];
         $data = $orderModel->searchOne(['code' => $code]);
-        foreach($data['detail'] as $key => $value) {
+        foreach ($data['detail'] as $key => $value) {
             $product = $orderModel->fetch(['id' => $value['product_id']], 'product_detail');
-            $data['detail'][$key] = array_replace($data['detail'][$key], $product ?  $product :  ['null'=>'null']);
+            $data['detail'][$key] = array_replace($data['detail'][$key], $product ?  $product :  ['null' => 'null']);
         }
-       
-        $this->result[0] = $data;
 
+        $this->result[0] = $data;
+    }
+
+    public function insert(Request $request, Response $response)
+    {
+        $data = $request->getBody();
+        if (!App::$app->session->get('cart')) {
+            return $this->result[] = "cart null";
+        }
+        if ($this->orderModel->validate($data)) {
+            $this->orderModel->_save();
+            App::$app->session->set('cart', false);
+            $this->result[] = 'don hoang da duoc nhan';
+        } else {
+            $this->result[] = $this->orderModel->errors;
+            $this->result[] = 412;
+        };
     }
 
     public function delete(Request $request)
     {
         $code = $request->getBody()['code'];
         $orderModel = new OrderModel();
-        $orderModel->_delete( $code);
-
+        $orderModel->_delete($code);
     }
-
 }

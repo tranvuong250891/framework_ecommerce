@@ -3,6 +3,7 @@
     --margin: 1em;
     --padding: 0.5em;
     --colorActive: #6a5af9;
+    --colorError: #b00020;
 }
 
 html {
@@ -34,8 +35,8 @@ html {
         --bg-b: #f1f1f1;
         --bg-c: #dbdbdb;
         --text-a: #3d3d3d;
-        --text-b: #2b2b2b;
-        --text-c: #1a1a1a;
+        --text-b: #1d1d1d;
+        --text-c: #000000;
         --color-text: #181818;
     }
     &[data-theme="dark"] {
@@ -55,4 +56,5 @@ html {
 body {
     background-color: var(--bg);
     color: var(--color-text);
+    background-color: var(--bg-a);
 }

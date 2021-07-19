@@ -21,7 +21,7 @@ class ProductApi extends ControllerApi
     {
         return [
             'admin' => ['update', 'delete', 'insert'],
-            'token' =>  ['update', 'delete', 'insert'],
+            'token' =>  ['update', 'delete', 'insert', 'index'],
         ];
     }
 
@@ -35,8 +35,7 @@ class ProductApi extends ControllerApi
     {
         $action = $request->getBody()['product_id'];
         // Test::show($this->productModel->find('all'));
-        // $this->result[] = $this->productModel->find(['product_id' => $action]);
-        $this->result[] = $this->productModel->find('all');
+        $this->result[] = $this->productModel->find(['product_id' => $action]);
     }
 
     public function insert(Request $request)
@@ -50,8 +49,8 @@ class ProductApi extends ControllerApi
 
     public function show(Request $request)
     {
-        // $this->result[] = $this->productModel->find('all');
-        $this->result[0] = ["ok"];
+        $this->result[] = $this->productModel->find('all');
+        // $this->result[0] = ["ok"];
     }
 
     public function update(Request $request)

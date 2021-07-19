@@ -5,6 +5,7 @@
             height: var(--height-menu);
             justify-content: flex-start;
             border: 1px solid var(--bg-b);
+            border-radius: 20px 0 0 20px;
             &:hover {
                 background: var(--bg-c);
                 color: var(--text-c);

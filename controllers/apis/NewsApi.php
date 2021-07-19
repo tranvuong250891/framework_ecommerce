@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers\apis;
 
 use app\core\Controller;
@@ -21,7 +22,7 @@ class NewsApi extends ControllerApi
     /* abstract */
     protected function actionsMiddle(): array
     {
-        return [ 
+        return [
             'admin' => ['update', 'delete', 'insert'],
             'token' =>  ['update', 'delete', 'insert'],
         ];
@@ -34,16 +35,16 @@ class NewsApi extends ControllerApi
     /*   end abstract */
 
     public function index(Request $request)
-    {   
+    {
         $action = $request->getBody()['news_id'];
         $this->result[] = $this->NewsModel->find(['news_id' => $action]);
     }
 
     public function insert(Request $request)
-    {    
-        if($this->NewsModel->validate($request->getBody())){
+    {
+        if ($this->NewsModel->validate($request->getBody())) {
             $this->result[] = $this->NewsModel->_save();
-        } else{ 
+        } else {
             $this->result[] = $this->NewsModel->errors;
             $this->result[] = 412;
         }
@@ -52,30 +53,25 @@ class NewsApi extends ControllerApi
     public function update(Request $request)
     {
         $id = $request->getBody()['id'];
-        if($this->NewsModel->validate($request->getBody())) {
-           
+        if ($this->NewsModel->validate($request->getBody())) {
             $this->NewsModel->_update(['id' => $id]);
         } else {
             $this->result[] = $this->NewsModel->errors;
             $this->result[] = 412;
-        }      
+        }
     }
 
     public function detail(Request $request, Response $response)
-    {  
-        foreach($request->getBody() as $attr => $vlaue) {
-            if($attr == 'path'){
+    {
+        foreach ($request->getBody() as $attr => $vlaue) {
+            if ($attr == 'path') {
                 $where = ['path' => $request->getBody()[$attr]];
                 $id = $this->NewsModel->fetch($where, 'url_seo')['id'];
                 $this->result[] = $this->NewsModel->findOne(['url_id' => $id]);
-            } elseif($attr == 'id' ){
+            } elseif ($attr == 'id') {
                 $this->result[] = $this->NewsModel->findOne(['id' => $request->getBody()[$attr]]);
             }
         }
-        
-        
-        
-        
     }
 
     public function delete(Request $request)
@@ -90,4 +86,8 @@ class NewsApi extends ControllerApi
         $this->result[] = $this->NewsModel->find(['top_news' => $top]);
     }
 
+    public function category()
+    {
+        $this->result[] = $this->NewsModel->test('all', 'news');
+    }
 }

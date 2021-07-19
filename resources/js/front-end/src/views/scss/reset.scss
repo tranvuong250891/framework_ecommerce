@@ -54,11 +54,14 @@ button {
     /* Track */
     ::-webkit-scrollbar-track {
         background: initial;
+
+        //
     }
 
     /* Handle */
     ::-webkit-scrollbar-thumb {
         border-radius: 10px;
+        background: var(--text-a);
     }
     /* Handle on hover */
 }

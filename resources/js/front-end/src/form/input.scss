@@ -4,10 +4,10 @@
     background: var(--bg-a);
 
     input {
-        border-radius: 10px;
+        border-radius: 5px;
         padding: 1.5rem 1rem 0.5rem 1rem;
         background: inherit;
-
+        width: 100%;
         &:focus {
             border: 1px solid var(--colorActive);
         }
@@ -21,6 +21,7 @@
         left: 1rem;
         top: 0;
         background-color: inherit;
+        opacity: 1;
     }
 
     label {
@@ -30,5 +31,25 @@
         top: 1rem;
         transition: all 0.2s;
         color: var(--text-a);
+        pointer-events: none;
+        opacity: 0.3;
+    }
+}
+
+.error {
+    color: var(--colorError);
+    .mess {
+        color: var(--colorError);
+        margin-top: 0.5rem;
+    }
+
+    input {
+        border-color: var(--colorError);
+    }
+    input:not(:placeholder-shown) + label {
+        color: var(--colorError);
+    }
+    input:focus + label {
+        color: var(--colorActive);
     }
 }
