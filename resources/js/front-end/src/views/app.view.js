@@ -9,29 +9,39 @@ import '../views/scss/reset.scss'
 import '../views/scss/theme.scss'
 import '../views/scss/layout.scss'
 import '../views/scss/lib.scss'
+import { pageLoadding } from './loadding/pageLoadding'
+import { delay } from '../lib/delay'
+import redirect from '../lib/redirect'
 
 const appEl = document.getElementById('app')
+const contentEl = appEl.querySelector('#content')
 
 
 export default async ({ count, data, link, tap }) => {
-    // console.log(data)
+
 
     appEl.appendChild(await nav(count))
-    // appEl.appendChild(menu(tap))
-    appEl.appendChild(sidebar(link))
     appEl.appendChild(await content(data))
+
+
+    appEl.appendChild(await sidebar(link))
 
     const elSidebar = appEl.querySelector('#sidebar')
     document.querySelector(".nav-item.bars").onclick = () => { elSidebar.classList.toggle('hide') }
-    appEl.querySelectorAll('a').forEach(a => {
-        a.onclick = () => {
-            let url = a.getAttribute('url')
-            window.history.replaceState('', "", url)
-            window.router({ pathname: url })
-        }
-    })
+
+
     document.querySelector('#checbox-change-theme').checked =
         (document.documentElement.getAttribute('data-theme') === 'dark') ? true : false
+    appEl.querySelectorAll('a').forEach(a => {
+        a.onclick = async () => {
+
+            let url = a.getAttribute('url')
+            redirect(url)
+
+
+        }
+    })
 
     return appEl
+
 }

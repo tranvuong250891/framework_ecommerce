@@ -1,8 +1,14 @@
 <?php
+
 namespace app\core;
 
-use app\core\middlewares\AuthMiddleware;
-use app\models\LoginModel;
+use app\core\database\mongodb\DatabaseMongodb;
+use app\core\database\pdodb\Database;
+use app\core\request\Request;
+use app\core\response\Response;
+use app\core\router\Router;
+use app\core\session\Session;
+use app\core\view\View;
 
 class App
 {
@@ -14,13 +20,13 @@ class App
     public Database $database;
     public View $view;
     public Session $session;
-    public Email $email;
+    private DatabaseMongodb $mongoDb;
     public $client;
     public static string $hostName;
 
     public function __construct($config)
     {
-        // Test::show();
+
         self::$rootPath = $config['rootPath'];
         self::$hostName = $config['host_name'];
         self::$app = $this;
@@ -28,16 +34,16 @@ class App
         $this->session = new Session();
         $this->client = $config['loginGoogle'] ?? "";
         $this->database = new Database($config['db']);
+        $this->mongoDb =  new DatabaseMongodb($config['mongodb']);
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
         $this->router->resolve();
-        
     }
 
     public function login($user)
     {
-        $this->session->user( $user) ?? false;
-        
+        $this->session->user($user) ?? false;
+
         return true;
     }
 
@@ -53,9 +59,5 @@ class App
 
     public function run()
     {
-
     }
-
-
-
 }

@@ -1,10 +1,7 @@
-// function delay(ms) {
-//     return new Promise(resolve => setTimeout(() => { }, ms))
-// }
+
 
 export const api = async ({ data, url, method, callbackApi }) => {
-    // delay(1)
-    // console.log(await delay(1))
+
     const token = await fetch('/token')
     const response = await fetch(url, {
         method: method ?? 'POST',
@@ -17,8 +14,9 @@ export const api = async ({ data, url, method, callbackApi }) => {
         body: JSON.stringify({ ...data, token: await token.json() })
     });
 
-    callbackApi && callbackApi(response.json())
+    // console.log(response)
 
+    callbackApi && callbackApi(response.json())
 
 
     return response.json();

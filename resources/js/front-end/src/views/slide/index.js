@@ -6,11 +6,11 @@ export const SlideView = () => {
     El.innerHTML = `
         <div class="slide-show">
             <div class="ctn-img-slide">
-                <div class="img img-slide" style="background-image: url('/img/laptop1.jpg')"></div>
-                <div class="img img-slide" style="background-image: url('/img/laptop2.jpg')"></div>
-                <div class="img img-slide" style="background-image: url('/img/laptop3.jpg')"></div>
-                <div class="img img-slide" style="background-image: url('/img/laptop4.jpg')"></div>
-                <div class="img img-slide" style="background-image: url('/img/laptop5.jpg')"></div>
+                <div class="img img-slide" style="background-image: url('/img/panner/panner1.jpg')"></div>
+                <div class="img img-slide" style="background-image: url('/img/panner/panner2.jpg')"></div>
+                <div class="img img-slide" style="background-image: url('/img/panner/panner3.jpg')"></div>
+                <div class="img img-slide" style="background-image: url('/img/panner/panner4.jpg')"></div>
+                <div class="img img-slide" style="background-image: url('/img/panner/panner5.jpg')"></div>
                
             </div>
             <div class="ctn-title-slide">

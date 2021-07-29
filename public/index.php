@@ -1,12 +1,15 @@
 <?php
 
 use app\core\App;
-use app\core\Response;
+use app\core\response\Response;
 use app\core\Test;
 
 $rootPath =  dirname(__DIR__);
 
 require_once $rootPath . '/vendor/autoload.php';
+
+
+
 
 $env = file_exists($rootPath . '/local.env') ? "local.env" : null;
 
@@ -21,6 +24,11 @@ $conf = [
         'user' => $_ENV['DB_USER'],
         'pass' => $_ENV['DB_PASS'],
         'name' => $_ENV['DB_NAME'],
+    ],
+
+    'mongodb' => [
+        'connect' =>    $_ENV['DB_CONNECT_MONGO'],
+        'dbName' => $_ENV['DB_NAME_MONGO']
     ]
 ];
 

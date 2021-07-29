@@ -2,27 +2,18 @@
 
 namespace app\controllers;
 
-use app\core\Controller;
-use app\core\app;
-use app\core\middlewares\AuthMiddleware;
-use app\core\Request;
-use app\core\Response;
-use app\core\Test;
-use app\models\OrderModel;
+use app\core\controllers\Controller;
+use app\core\request\Request;
+
 
 class TestController extends Controller
 {
     public function __construct()
     {
-        // $auth = new AuthMiddleware(['index']);
-        // $auth->checkSubmit();
-        // $auth->execute();
-
     }
 
     public function index(Request $request)
     {
-        echo json_encode($request->getBody());
     }
 
     public function update()

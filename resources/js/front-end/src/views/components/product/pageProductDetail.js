@@ -2,6 +2,8 @@ import createEl from '../../../lib/createEl'
 import Form from '../../../form/Form'
 import appView from '../../app.view'
 import { api } from '../../../lib/callApi'
+import { delay } from "../../../lib/delay"
+
 import { pageLoadding } from '../../loadding/pageLoadding'
 require('../../scss/pageproductdetail.scss')
 export default async (res) => {
@@ -113,7 +115,7 @@ export default async (res) => {
                 qty: parseInt(valueQtyProduct.value)
             }
         })
-        appView({ data: ctnProductDetail })
+        appView({ data: delay(ctnProductDetail, 0) })
 
     }
 

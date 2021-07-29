@@ -2,56 +2,78 @@
 
 namespace app\controllers;
 
-use app\core\Controller;
-use app\core\Request;
-use app\core\Response;
-use app\core\Test;
-use app\models\ProductModel;
-use app\models\ProductsModel;
-use app\core\middlewares\AuthMiddleware;
-use app\models\SeoModel;
-use GrahamCampbell\ResultType\Result;
-use main\models\ProductModel as ModelsProductModel;
+use app\core\controllers\ControllerApi;
+use app\core\database\mongodb\DatabaseMongodb;
+use app\core\lib\Test;
+use app\core\request\Request;
+use app\models\mongodb\product\ProductDetailModel;
+use app\models\mongodb\product\ProductModel;
 
-class ProductController extends Controller
+class ProductController extends ControllerApi
 {
+    private array $result = [];
+    public array $req;
 
     public function __construct(Request $request)
     {
-        $middle = new AuthMiddleware();
-        $middle->checkSubmit(['index']);
-        $middle->login();
-        $middle->execute();
-        $this->productModel = new ProductModel();
+
+        $this->req = $request->getBody()['product'] ?? [];
+        $this->action = $this->req['action'] ?? '';
+        $this->filter = $this->req['filter'] ?? [];
+        $this->options = $this->req['options'] ?? [];
+        foreach ($this->filter ?? [] as $key => $value) {
+            if (strpos($key ?? '', 'matchs') !== false) {
+                $this->filter[$key] = DatabaseMongodb::_id($value);
+            }
+        }
+    }
+
+    public function actionsMiddle(): array
+    {
+        return [];
+    }
+
+    public function setResult(): array
+    {
+        return $this->result;
     }
 
     public function index(Request $request)
     {
-        
-        $result = $request->getBody();
-        $result = $this->productModel->findOne(['id' => $result['id']]);
-        echo json_encode($result);
-    }
-
-    public function show(Request $request, Response $response)
-    {
-        $result = $this->productModel->find(['id' => 1]);
-        echo json_encode($result);
+        // Test::show($this->filter);
+        switch ($this->action) {
+            case 'count':
+                $this->result[0] =  ProductDetailModel::count($this->filter, $this->options);
+                break;
+            case 'category':
+                $this->result[0] =  ProductModel::find($this->filter, $this->options);
+                break;
+            case 'detail':
+                $this->result[0] =  ProductDetailModel::find($this->filter, $this->options);
+            default:
+                $this->result[0] =  ProductDetailModel::find($this->filter, $this->options);
+                break;
+        }
     }
 
     public function detail(Request $request)
     {
-        $this->title = $result['title'] ?? '';
-        Controller::render('/contents/productdetail.html');
     }
 
-    
-
-    public function test()
+    public function show()
     {
-        
+        $this->result[0] = ProductDetailModel::findAll($this->filter, $this->options);
     }
 
-    
+    public function insert()
+    {
+    }
 
+    public function update()
+    {
+    }
+
+    public function delete()
+    {
+    }
 }

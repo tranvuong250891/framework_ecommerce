@@ -3,11 +3,12 @@
 use app\controllers\api\CommentApi;
 use app\controllers\api\imgApi;
 use app\controllers\ApiUserController;
-use app\core\Router;
+use app\core\router\Router;
 use app\controllers\ProductController;
 use app\controllers\CartController;
 use app\controllers\DashboardController;
 use app\controllers\HomeController;
+use app\controllers\NewsController;
 use app\controllers\TestController;
 use app\controllers\UserController;
 use app\core\Modal;
@@ -21,8 +22,6 @@ Router::post('/signup', [UserController::class, 'signin']);
 Router::get('/user', [UserController::class, 'user']);
 Router::get('/destroy', [UserController::class, 'destroy']);
 Router::get('/logingoogle', [UserController::class, 'google']);
-
-
 
 //HOME
 Router::get('/home', [HomeController::class, 'index']);
@@ -44,9 +43,15 @@ Router::get('/cart', [CartController::class, 'index']);
 Router::get('/cart/delete', [CartController::class, 'delete']);
 
 
-//COMMENT
-Router::post('/comment', [CommentApi::class, 'index']);
-Router::get('/comment/show', [CommentApi::class, 'show']);
+//NEWS
+Router::post('/news', [NewsController::class, 'index']);
+Router::post('/newsdetail', [NewsController::class, 'detail']);
+
+//PRODUCT
+Router::post('/product', [ProductController::class, 'index']);
+Router::post('/product/show', [ProductController::class, 'show']);
+
+
 
 //MODAL
 Router::get('/modal/img', [Modal::class, 'img']);

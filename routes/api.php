@@ -1,11 +1,12 @@
 <?php
 
-use app\core\Router;
+use app\core\router\Router;
 use app\controllers\apis\ProductApi;
 use app\controllers\apis\NewsApi;
 use app\controllers\apis\CartApi;
 use app\controllers\apis\OrderApi;
 use app\controllers\apis\UserApi;
+use app\controllers\NewsController;
 use app\controllers\TestController;
 
 //DASHBOARD
@@ -24,17 +25,17 @@ Router::post('/api/product/delete', [ProductApi::class, 'delete']);
 
 
 //NEWS
-Router::post('/api/news/show', [NewsApi::class, 'index']);
+Router::post('/api/news/show', [NewsApi::class, 'show']);
 Router::post('/api/news/detail', [NewsApi::class, 'detail']);
-// Router::get('/api/news/detail', [NewsApi::class, 'detail']);
 Router::post('/api/news/insert', [NewsApi::class, 'insert']);
 Router::post('/api/news/update', [NewsApi::class, 'update']);
 Router::post('/api/news/delete', [NewsApi::class, 'delete']);
 Router::post('/api/news/category', [NewsApi::class, 'category']);
 
+Router::get('/api/news/index', [NewsController::class, 'index']);
+
 
 //CART 
-// Router::get('/api/cart/store', [CartApi::class, 'store']);
 Router::post('/api/cart/store', [CartApi::class, 'store']);
 Router::post('/api/cart/show', [CartApi::class, 'show']);
 Router::post('/api/cart/update', [CartApi::class, 'update']);

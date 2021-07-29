@@ -4,12 +4,15 @@ import appView from "../../app.view"
 import { loadCart } from "../../loadding/loadCart"
 import redirect from '../../../lib/redirect'
 
+import { CartView } from "./cart.view"
+import { delay } from "../../../lib/delay"
+
 const handdleCartQty = async (qty, id) => {
-    await api({
+    let res = await api({
         url: '/api/cart/update',
         data: { id: id, qty: qty }
     })
-    redirect('/cart')
+    await appView({ data: delay(CartView(res.response), 0) })
 }
 
 export const quantity = (qty, id) => {

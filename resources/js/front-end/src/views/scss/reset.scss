@@ -39,7 +39,8 @@ button {
     border-radius: 5px;
     font-weight: bold;
     margin: 0;
-    &:hover {
+    &:hover,
+    &.active {
         background: var(--text-btn);
         color: var(--bg-btn);
         border: 1px solid var(--text-btn);

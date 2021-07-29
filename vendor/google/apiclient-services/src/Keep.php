@@ -28,7 +28,7 @@ use Google\Client;
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://support.google.com/keep" target="_blank">Documentation</a>
+ * <a href="https://developers.google.com/keep/api" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.
@@ -38,6 +38,9 @@ class Keep extends \Google\Service
   /** See, edit, create and permanently delete all your Google Keep data. */
   const KEEP =
       "https://www.googleapis.com/auth/keep";
+  /** View all your Google Keep data. */
+  const KEEP_READONLY =
+      "https://www.googleapis.com/auth/keep.readonly";
 
   public $media;
   public $notes;

@@ -2,15 +2,14 @@
 
 namespace app\controllers;
 
-use app\core\Controller;
 use app\core\app;
 use app\core\middlewares\AuthMiddleware;
-use app\core\Request;
-use app\core\Response;
 use app\core\Test;
 use app\controllers\apis\NewsApi;
 use app\controllers\apis\ProductApi;
-
+use app\core\controllers\Controller;
+use app\core\request\Request;
+use app\core\response\Response;
 
 class HomeController extends Controller
 {

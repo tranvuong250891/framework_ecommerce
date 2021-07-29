@@ -2,12 +2,12 @@
 
 namespace app\core\view;
 
-use app\core\Request;
-use app\core\Response;
 use app\core\Test;
 use app\core\App;
 use app\core\exceptions\ForbiddenException;
 use app\core\exceptions\NotFoundException;
+use app\core\request\Request;
+use app\core\response\Response;
 
 class SetFileView extends BaseView
 {

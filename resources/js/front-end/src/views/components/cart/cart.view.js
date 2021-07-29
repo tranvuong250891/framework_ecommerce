@@ -23,7 +23,7 @@ const callbackCart = async (res) => {
 export const CartView = async (carts) => {
     carts = Object.values(carts) ?? false
     const Cart = createEl({ classNames: ['ctn-cart'] })
-    console.log(!carts.length)
+    // console.log(!carts.length)
     if (!carts.length) {
         return Cart.appendChild(ModalEl({
             name: 'Thong bao Cho Gio Hang',
@@ -74,7 +74,7 @@ export const CartView = async (carts) => {
             </div>
         </div>`
 
-    carts.forEach(cart => { Cart.querySelector('.ctn-product-customer').appendChild(cartdetail(cart))})
+    carts.forEach(cart => { Cart.querySelector('.ctn-product-customer').appendChild(cartdetail(cart)) })
     Cart.querySelector('.order-customer').appendChild(btnSubmit)
     Cart.querySelector('.ctn-addr-customer').appendChild(formCartEl)
     Cart.querySelector('.payment-customer').append(

@@ -82,8 +82,9 @@ class NewsApi extends ControllerApi
 
     public function show(Request $request)
     {
-        $top = $request->getBody()['top_news'];
-        $this->result[] = $this->NewsModel->find(['top_news' => $top]);
+        $news = $request->getBody()['news'];
+        // $this->result[] = $news['where'];
+        $this->result[] = $this->NewsModel->filter($news);
     }
 
     public function category()

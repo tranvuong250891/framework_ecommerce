@@ -3,6 +3,8 @@
 namespace app\core\router;
 
 use app\controllers\HomeController;
+use app\controllers\NewsController;
+use app\controllers\TestController;
 use app\core\Controller;
 use app\core\Request;
 use app\core\Test;
@@ -44,7 +46,9 @@ abstract class HandleRouter
             case 'lib':
                 $callback = [SetFileView::class, 'lib'];
                 break;
-
+            case 'test':
+                $callback = [NewsController::class, 'index'];
+                break;
             default:
                 $callback = $routes[$method][implode('/', $path)];
                 if ($method === 'get') {

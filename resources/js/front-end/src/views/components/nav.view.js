@@ -85,27 +85,27 @@ export default async (nav) => {
         } else { (document.documentElement.setAttribute('data-theme', 'dark')) }
     }
     let countCart = navEl.querySelector('.total-count-cart')
-    countCart.innerHTML = ``
-    countCart.appendChild(loadCart())
-    const res = await api({ url: '/api/cart/show', })
+    countCart.innerHTML = `0`
+    // countCart.appendChild(loadCart())
+    // const res = await api({ url: '/api/cart/show', })
 
-    const totalCount = (Object.values(res.response).length) ?
-        Object.values(res.response)
-            .map(product => product.qty)
-            .reduce((first, value) => first + value)
-        : 0
-    countCart.innerHTML = `${totalCount}`
+    // const totalCount = (Object.values(res.response).length) ?
+    //     Object.values(res.response)
+    //         .map(product => product.qty)
+    //         .reduce((first, value) => first + value)
+    //     : 0
+    // countCart.innerHTML = `${totalCount}`
 
-    const user = await api({ url: "/api/user/index" })
+    // const user = await api({ url: "/api/user/index" })
 
     // console.log(user.response.img)
-    if (user.response) {
-        navEl.querySelector('.nav-show-img-user').style.display = 'block'
-        navEl.querySelector('.nav-login-user').style.display = 'none'
-    } else {
-        navEl.querySelector('.nav-show-img-user').style.display = 'none'
-        navEl.querySelector('.nav-login-user').style.display = ''
-    }
+    // if (user.response) {
+    //     navEl.querySelector('.nav-show-img-user').style.display = 'block'
+    //     navEl.querySelector('.nav-login-user').style.display = 'none'
+    // } else {
+    //     navEl.querySelector('.nav-show-img-user').style.display = 'none'
+    //     navEl.querySelector('.nav-login-user').style.display = ''
+    // }
 
     return navEl
 }

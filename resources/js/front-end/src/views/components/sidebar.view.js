@@ -5,7 +5,7 @@ const sidebarEl = document.createElement('sidebar')
 sidebarEl.id = 'sidebar'
 
 
-export default () => {
+export default async () => {
   sidebarEl.innerHTML = `
         <sidebar id="sidebar" class="">
     

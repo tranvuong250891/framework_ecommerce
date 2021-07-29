@@ -6,13 +6,14 @@ import { api } from '../lib/callApi'
 import pageProductDetail from '../views/components/product/pageProductDetail'
 import { loadding } from '../views/loadding/loadding'
 import { pageLoadding } from '../views/loadding/pageLoadding'
+import { delay } from '../lib/delay'
 
 export const ProductDetailController = async (params) => {
-    app({ data: pageLoadding() })
+
     const res = await api({
         url: '/api/product/detail',
         data: { id: params.get('product_id') }
     })
-    app({ data: pageProductDetail(res) })
+    app({ data: delay(pageProductDetail(res)) })
     return 'TestController'
 }
