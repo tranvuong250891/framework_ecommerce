@@ -2,7 +2,7 @@ import { html } from "../../lib/html";
 import createEl from "../../lib/createEl";
 import Form from "../../form/Form";
 import redirect from "../../lib/redirect";
-
+require('./scss/login.scss')
 const callbackApi = async (res) => {
     res = await res
         ; (res === 'success') && redirect('/')
@@ -14,7 +14,7 @@ export const loginForm = () => {
     classForm.addField({ key: 'email', typeField: 'input', label: 'nhap Email', value: "" })
     classForm.addField({ key: 'pass', typeField: 'input', label: 'nhap pass', value: "" })
     const formLogin = classForm.getFormEL()
-    require('../scss/login.scss')
+
     const fieldLoginSocial = createEl({ classNames: ['ctn-social'] })
     fieldLoginSocial.innerHTML = `
         <h3>login with social</h3>

@@ -34,13 +34,17 @@ Router::post('/', [HomeController::class, 'index']);
 Router::post('/index.html', [HomeController::class, 'index']);
 Router::post('', [HomeController::class, 'index']);
 Router::post('/index.php', [HomeController::class, 'index']);
+Router::post('/detail', [HomeController::class, 'detail']);
+
+
 
 //CART 
-Router::get('/cart/store', [CartController::class, 'store']);
-Router::get('/cart/update', [CartController::class, 'update']);
-Router::get('/cart/destroy', [CartController::class, 'destroy']);
-Router::get('/cart', [CartController::class, 'index']);
-Router::get('/cart/delete', [CartController::class, 'delete']);
+Router::post('/cart/store', [CartController::class, 'store']);
+Router::post('/cart/update', [CartController::class, 'update']);
+Router::post('/cart/show', [CartController::class, 'show']);
+Router::post('/cart/destroy', [CartController::class, 'destroy']);
+Router::post('/cart/count', [CartController::class, 'count']);
+Router::post('/cart/delete', [CartController::class, 'delete']);
 
 
 //NEWS
@@ -50,7 +54,8 @@ Router::post('/newsdetail', [NewsController::class, 'detail']);
 //PRODUCT
 Router::post('/product', [ProductController::class, 'index']);
 Router::post('/product/show', [ProductController::class, 'show']);
-
+Router::post('/product/detail', [ProductController::class, 'detail']);
+Router::post('/product/search', [ProductController::class, 'search']);
 
 
 //MODAL

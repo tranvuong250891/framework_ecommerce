@@ -9,10 +9,11 @@ import { delay } from "../../../lib/delay"
 
 const handdleCartQty = async (qty, id) => {
     let res = await api({
-        url: '/api/cart/update',
+        url: '/cart/update',
         data: { id: id, qty: qty }
     })
-    await appView({ data: delay(CartView(res.response), 0) })
+    // console.log(res)
+    await appView({ data: delay(CartView(res), 0) })
 }
 
 export const quantity = (qty, id) => {
@@ -43,7 +44,6 @@ export const quantity = (qty, id) => {
         quantity.style.cursor = "not-allowed"
         value = value + 1
         await handdleCartQty(value, id)
-
     }
 
     valueQuantityCart.onblur = () => {

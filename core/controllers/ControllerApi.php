@@ -3,11 +3,13 @@
 namespace app\core\controllers;
 
 use app\core\exceptions\NotFoundException;
-use app\core\Test;
+
 use app\core\middlewares\AuthMiddleware;
 use app\core\App;
+use app\core\lib\Test;
+use Google\Service\Texttospeech\Resource\Text;
 
-abstract class ControllerApi 
+abstract class ControllerApi
 {
     private array $result = [];
     private const RESPONSE = 'response';
@@ -22,9 +24,9 @@ abstract class ControllerApi
         412 => 'du lieu goi khong hop le'
     ];
 
-    abstract protected function actionsMiddle() : array;
+    abstract protected function actionsMiddle(): array;
     abstract function setResult(): array;
-    
+
     public function action()
     {
         return App::$app->router->action;
@@ -40,8 +42,8 @@ abstract class ControllerApi
     private function handleResult()
     {
         $this->setResponse();
-        $this->result[self::MESSAGE] =  
-            $this->result[self::MESSAGE] ?? 
+        $this->result[self::MESSAGE] =
+            $this->result[self::MESSAGE] ??
             self::$getMess[$this->result[self::CODE]];
         if (!array_key_exists($this->result[self::CODE], self::$getMess)) {
             throw new NotFoundException('statuscode khong dung');
@@ -54,12 +56,11 @@ abstract class ControllerApi
         $login = $this->actionsMiddle()['login'] ?? [];
         $admin = $this->actionsMiddle()['admin'] ?? [];
         $middle = new AuthMiddleware();
-       
+
         $middle->checkSubmit($submit);
         $middle->login($login);
         $middle->adminDashboard($admin);
         $middle->execute();
-        
     }
 
     public function __destruct()
@@ -67,6 +68,8 @@ abstract class ControllerApi
         // ob_end_clean();
         $this->middleware();
         $this->handleResult();
+
+
         echo json_encode($this->result);
     }
 }

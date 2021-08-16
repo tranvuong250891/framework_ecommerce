@@ -2,7 +2,8 @@ import { pageLoadding } from '../loadding/pageLoadding'
 import createEl from '../../lib/createEl'
 import { api } from '../../lib/callApi'
 import { loadCart } from '../loadding/loadCart'
-import '../scss/nav.scss'
+import './scss/nav.scss'
+import { delay } from '../../lib/delay'
 
 const navEl = document.createElement('nav')
 navEl.id = 'nav'
@@ -42,7 +43,7 @@ export default async (nav) => {
                 <a url="/cart" >
                     <div class="nav-item fl cart">
                         <div icon="shopping_bag"></div>
-                        <p class="total-count-cart">(so)</p>
+                        <p class="total-count-cart"></p>
                     </div>
                 </a>
                 <a url="/login" class="nav-login-user">
@@ -85,16 +86,13 @@ export default async (nav) => {
         } else { (document.documentElement.setAttribute('data-theme', 'dark')) }
     }
     let countCart = navEl.querySelector('.total-count-cart')
-    countCart.innerHTML = `0`
-    // countCart.appendChild(loadCart())
-    // const res = await api({ url: '/api/cart/show', })
 
-    // const totalCount = (Object.values(res.response).length) ?
-    //     Object.values(res.response)
-    //         .map(product => product.qty)
-    //         .reduce((first, value) => first + value)
-    //     : 0
-    // countCart.innerHTML = `${totalCount}`
+    // countCart.innerHTML = `0`
+    countCart.appendChild(loadCart())
+
+    const res = await api({ url: '/cart/count', })
+    // console.log(res)
+    countCart.innerHTML = `${res ?? 0}`
 
     // const user = await api({ url: "/api/user/index" })
 

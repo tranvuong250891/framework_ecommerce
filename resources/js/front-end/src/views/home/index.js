@@ -14,10 +14,12 @@ export const HomeView = async () => {
 
     const categoryProduct = await api({
         url: '/product',
-        data: { product: { action: 'category' } }
+        data: { product: "", action: 'category' }
+
     })
 
     const El = createEl({ classNames: ['ctn-news'] })
+    // console.log(categoryProduct)
     El.id = "news"
     El.innerHTML = `
         <div class="slide-news">
@@ -29,10 +31,10 @@ export const HomeView = async () => {
                 <div class="img-banner" style="background-image: url('/img/panner/panner7.jpg')"></div>
             </div>
         </div>
-        <div class="ctn-category-news">
+        <div class="ctn-category-news category">
             <h1 class="">danh muc tin tuc</h1>
         </div>
-        <div class="ctn-category-product">
+        <div class="ctn-category-product category">
             <h1 class="">Danh muc san pham</h1>
         </div>
     `
@@ -44,7 +46,7 @@ export const HomeView = async () => {
         }))
     });
 
-    console.log(categoryProduct.response)
+    // console.log(categoryProduct.response)
     categoryProduct.response.forEach(category => {
         El.querySelector('.ctn-category-product').appendChild(CategoryNewsView({
             ...category,

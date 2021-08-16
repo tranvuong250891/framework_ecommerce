@@ -1,32 +1,41 @@
-import { api } from "../../lib/callApi"
 import createEl from "../../lib/createEl"
+import { fetchApi } from "../../lib/fetch"
+import { routerEl } from "../../router/router"
 import { DetailProductView } from "./detail.product.view"
 require('./scss/category-product.scss')
 
-export const CategoryProductView = async (_id) => {
+export const CategoryProductView = async ({ categoryId, categoryName, optionIds }) => {
     const El = createEl({ classNames: ['ctn-category-product'] })
-    const res = await api({
-        url: '/product/show',
-        data: {
-            product: {
-                filter: { "matchs.product": _id }
-            },
-        }
-    })
-
-    let nameCategory = res.response[0].matchs.product.name_category
-    // console.log(res.response)
     El.innerHTML = `
         <div class="header-category-product">
-            <h1 class="name-title">${nameCategory}</h1>
+            <h1 class="name-title">${categoryName}</h1>
         </div>
-        <div class="ctn-show-product"></div>`
-    const CtnShowProduct = El.querySelector('.ctn-show-product')
-    res.response.forEach(product => {
+        <div class="ctn-show-product"> </div > `
+    let res = await fetchApi({
+        url: "/product",
+        data: {
+            method: "filterProduct",
+            filter: { optionId: optionIds, categoryId: [categoryId] },
+            action: "option",
+        }
+    })
+    res = JSON.parse(res)
+    const products = res.response
 
-        CtnShowProduct.appendChild(DetailProductView(product))
-    });
-
+    for (const product of products) {
+        const url = await fetchApi({
+            url: '/product',
+            data: {
+                method: "find",
+                action: "url",
+                filter: { _id: product.url['$oid'] },
+            }
+        })
+        const nameUrl = JSON.parse(url).response[0].nameUrl
+        let router = routerEl(nameUrl)
+        router.innerHTML = DetailProductView(product)
+        El.querySelector('.ctn-show-product').appendChild(router)
+    }
 
     return El
 }

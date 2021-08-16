@@ -1,14 +1,14 @@
 import Form from "../../../form/Form"
-import { api } from "../../../lib/callApi"
 import createEl from "../../../lib/createEl"
 import redirect from "../../../lib/redirect"
-import appView from "../../app.view"
 import { ChooseEl } from "../../templates/choose.view"
 import { ModalEl } from "../../templates/modal/modal.view"
 import { cartdetail } from "./cartdetail.view"
-require('../../scss/cart.scss')
+require('./scss/cart.scss')
 
 const callbackCart = async (res) => {
+    console.log(res)
+
     res = await res
     if (res.code === 200) {
         document.querySelector('.ctn-cart').appendChild(ModalEl({
@@ -21,21 +21,24 @@ const callbackCart = async (res) => {
 }
 
 export const CartView = async (carts) => {
-    carts = Object.values(carts) ?? false
+
     const Cart = createEl({ classNames: ['ctn-cart'] })
     // console.log(!carts.length)
-    if (!carts.length) {
+    if (carts.count <= 0) {
         return Cart.appendChild(ModalEl({
             name: 'Thong bao Cho Gio Hang',
             content: 'khong co hang nao trong gio hang xin quay lai mua hang!!!',
-            cancel: () => { redirect('product') },
-            confirm: () => { redirect('product') }
+            code: 0,
+            cancel: () => { redirect('/home') },
+            confirm: () => { redirect('/home') }
 
         }))
     }
-    const priceTotal = carts.length ? carts.map(cart => cart.qty * cart.price)
-        .reduce((acc, price) => acc + price) : 0
-    const formCart = new Form({ url: '/api/order/insert', callbackApi: callbackCart })
+    carts = Object.values(carts) ?? false
+    // const priceTotal = carts.length ? carts.map(cart => cart.qty * cart.price)
+    //     .reduce((acc, price) => acc + price) : 0
+    // console.log(carts)
+    const formCart = new Form({ url: '/cart/insert', callbackApi: callbackCart })
     formCart.addField({ key: 'name', typeField: 'input', label: 'Nhap Ten', classNames: ['name'] })
     formCart.addField({ key: 'addr', typeField: 'input', label: 'Nhap Dia Chi', classNames: ['addr'] })
     formCart.addField({ key: 'phone', typeField: 'input', label: 'So Dien Thoai', classNames: ['phone'] })
@@ -60,7 +63,7 @@ export const CartView = async (carts) => {
             <div class="ctn-price-payment">
                 <div class="total-price item ">
                     <div>Tong tien hang:</div>
-                    <div><sup>đ</sup>  ${priceTotal}</div>
+                    <div class="show-price-total"><sup>đ</sup>  </div>
                 </div>
                 <div class="transport-price item ">
                     <div>Tien Van chuyen:</div>
@@ -69,12 +72,18 @@ export const CartView = async (carts) => {
                 <hr>
                 <div class="total-price-payment item ">
                     <div>Tong Thanh Toan:</div>
-                    <div class="hightlight"><sup>đ</sup>  ${priceTotal + 30000}</div>
+                    <div class="hightlight"><sup>đ</sup> </div>
                 </div>
             </div>
         </div>`
-
-    carts.forEach(cart => { Cart.querySelector('.ctn-product-customer').appendChild(cartdetail(cart)) })
+    let totalPrice = 0;
+    carts.forEach(cart => {
+        if ((typeof cart) === 'object') {
+            Cart.querySelector('.ctn-product-customer').appendChild(cartdetail(cart))
+            totalPrice += (cart.qty * cart.price)
+            // console.log(totalPrice, (cart.qty * cart.price))
+        }
+    })
     Cart.querySelector('.order-customer').appendChild(btnSubmit)
     Cart.querySelector('.ctn-addr-customer').appendChild(formCartEl)
     Cart.querySelector('.payment-customer').append(
@@ -82,5 +91,7 @@ export const CartView = async (carts) => {
         ChooseEl({ text: 'thanh toan MoMo' }),
         ChooseEl({ text: 'thanh toan Ngan Hang' }),
     )
+    Cart.querySelector('.total-price-payment .hightlight').innerHTML += `${totalPrice + 30000}`
+    Cart.querySelector('.show-price-total').innerHTML += `${totalPrice}`
     return Cart
 }

@@ -6,9 +6,8 @@ use app\core\controllers\ControllerApi;
 use app\core\database\mongodb\DatabaseMongodb;
 use app\core\lib\Test;
 use app\core\request\Request;
-use app\models\mongodb\News;
-use app\models\mongodb\NewsDetail;
-
+use app\models\mongodb\e_commerce\News;
+use app\models\mongodb\e_commerce\NewsDetail;
 
 class NewsController extends ControllerApi
 {
@@ -35,7 +34,6 @@ class NewsController extends ControllerApi
         $action = $req['action'];
 
         foreach ($req['filter'] ?? [] as $key => $value) {
-
             if (strpos($key ?? '', 'matchs') !== false) {
                 $req['filter'][$key] = DatabaseMongodb::_id($value);
             }
@@ -55,6 +53,7 @@ class NewsController extends ControllerApi
 
     public function detail(Request $request)
     {
+
         $req = $request->getBody()['news'];
         $this->result[0] = NewsDetail::find($req['filter'], $req['options'])[0];
     }

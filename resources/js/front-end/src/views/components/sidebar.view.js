@@ -1,5 +1,5 @@
 import { html } from "../../lib/html";
-import '../scss/sidebar.scss'
+import './scss/sidebar.scss'
 
 const sidebarEl = document.createElement('sidebar')
 sidebarEl.id = 'sidebar'

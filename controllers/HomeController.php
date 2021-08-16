@@ -2,19 +2,15 @@
 
 namespace app\controllers;
 
-use app\core\app;
-use app\core\middlewares\AuthMiddleware;
-use app\core\Test;
-use app\controllers\apis\NewsApi;
-use app\controllers\apis\ProductApi;
+
 use app\core\controllers\Controller;
+use app\core\lib\Test;
 use app\core\request\Request;
 use app\core\response\Response;
+use app\models\mongodb\e_commerce\UrlMongodb;
 
 class HomeController extends Controller
 {
-
-
     public function __construct()
     {
     }
@@ -30,26 +26,13 @@ class HomeController extends Controller
     public function index(Request $request, Response $response)
     {
         echo Controller::render();
-        exit;
-
-        // switch ($request->getBody()['action']) {
-        //     case 'news':
-        //         $news =  new NewsApi($request, $response);
-        //         $news->show($request, $response);
-        //         break;
-        //         return;
-        //     case 'product':
-        //         $product =  new ProductApi($request, $response);
-        //         $product->show($request, $response);
-        //         return;
-        //     default:
-        //         echo  Controller::render('contents/home.html');
-        //         break;
-        // }
     }
 
-    public function update()
+    public function detail(Request $request)
     {
+        $nameUrl = $request->getBody()['filter'];
+        $data =  UrlMongodb::findOne($nameUrl);
+        $data['class']::detail($data["_id"]);
     }
 
     public function store()
@@ -66,10 +49,5 @@ class HomeController extends Controller
 
     public function test()
     {
-
-        $this->render([
-            'name' => 'Vuong',
-            'title' => 'tilte',
-        ], '/dashboard/content.html');
     }
 }

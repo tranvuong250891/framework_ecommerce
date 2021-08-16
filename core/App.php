@@ -56,8 +56,4 @@ class App
     {
         return $this->session->get('user') ?? false;
     }
-
-    public function run()
-    {
-    }
 }

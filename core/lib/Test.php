@@ -24,10 +24,15 @@ class Test
         };
     }
 
-    public function pr($var, $exit = true)
+    public static function _array(object $object)
+    {
+        return json_decode(\json_encode($object), true);
+    }
+
+    public static function pr($var, $exit = true)
     {
         echo "<pre>";
-        var_dump($var);
+        print_r($var);
         echo "</pre>";
         if ($exit) {
             exit;

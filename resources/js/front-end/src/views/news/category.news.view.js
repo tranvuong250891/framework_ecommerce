@@ -6,7 +6,7 @@ export const CategoryNewsView = ({ _id, name_category, img, url }) => {
 
     const El = createEl({
         elName: 'a',
-        attrs: { url: url + _id.$oid },
+        attrs: { url: url + _id.$oid + "&name=" + name_category },
         classNames: ['category-item']
     })
     El.innerHTML = `

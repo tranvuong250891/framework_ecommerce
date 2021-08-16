@@ -6,26 +6,48 @@ use app\core\controllers\ControllerApi;
 use app\core\database\mongodb\DatabaseMongodb;
 use app\core\lib\Test;
 use app\core\request\Request;
-use app\models\mongodb\product\ProductDetailModel;
-use app\models\mongodb\product\ProductModel;
+use app\models\mongodb\e_commerce\UrlMongodb;
+use app\models\mongodb\product\CategoryMongodb;
+use app\models\mongodb\product\DetailMongodb;
+use app\models\mongodb\product\OptionMongodb;
+use app\models\mongodb\product\TypeMongodb;
 
 class ProductController extends ControllerApi
 {
     private array $result = [];
-    public array $req;
-
     public function __construct(Request $request)
     {
+        $req = $request->getBody();
+        $this->action = $req['action'] ?? '';
+        $this->filter = $req['filter'] ?? [];
+        $this->options = $req['options'] ?? [];
+        $this->method = $req['method'] ?? 'find';
 
-        $this->req = $request->getBody()['product'] ?? [];
-        $this->action = $this->req['action'] ?? '';
-        $this->filter = $this->req['filter'] ?? [];
-        $this->options = $this->req['options'] ?? [];
-        foreach ($this->filter ?? [] as $key => $value) {
-            if (strpos($key ?? '', 'matchs') !== false) {
-                $this->filter[$key] = DatabaseMongodb::_id($value);
+        foreach ($this->filter as $indexs => $pipeline) {
+            if (!is_array($pipeline)) {
+                $this->filter[$indexs] = DatabaseMongodb::_id($pipeline);
+
+                break;
+            }
+            foreach ($pipeline as $stages => $field) {
+                if (is_array($field)) {
+                    if ($stages === '$match') {
+                        foreach ($field as $fieldName => $values) {
+                            foreach ($values as $all => $ids) {
+                                if ($all === '$all') {
+                                    foreach ($ids as $index => $id) {
+                                        $this->filter[$indexs]['$match'][$fieldName]['$all'][$index] = DatabaseMongodb::_id($id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                } else {
+                    $this->filter[$indexs][$stages] = DatabaseMongodb::_id($field);
+                }
             }
         }
+        // Test::show($this->filter);
     }
 
     public function actionsMiddle(): array
@@ -40,29 +62,46 @@ class ProductController extends ControllerApi
 
     public function index(Request $request)
     {
-        // Test::show($this->filter);
         switch ($this->action) {
             case 'count':
-                $this->result[0] =  ProductDetailModel::count($this->filter, $this->options);
+                $this->result[0] =   DetailMongodb::count($this->filter, $this->options);
                 break;
             case 'category':
-                $this->result[0] =  ProductModel::find($this->filter, $this->options);
+                $this->result[0] =  CategoryMongodb::find($this->filter, $this->options);
                 break;
             case 'detail':
-                $this->result[0] =  ProductDetailModel::find($this->filter, $this->options);
+                $this->result[0] =   DetailMongodb::find($this->filter, $this->options);
+            case 'type':
+                return $this->result[0] = TypeMongodb::{$this->method}($this->filter, $this->options);
+                break;
+            case 'option':
+                return $this->result[0] = OptionMongodb::{$this->method}($this->filter, $this->options);
+            case 'url':
+                return $this->result[0] = UrlMongodb::find($this->filter);
+                break;
             default:
-                $this->result[0] =  ProductDetailModel::find($this->filter, $this->options);
+                $this->result[0] =   DetailMongodb::find($this->filter, $this->options);
                 break;
         }
     }
 
-    public function detail(Request $request)
+    public static function detail($idUrl)
     {
+        $filters = OptionMongodb::detail();
+        $filter = ['$match' => ["url" => $idUrl]];
+        array_push($filters, $filter);
+        $data = OptionMongodb::aggregate($filters)[0];
+        $data['view'] = 'product';
+        echo json_encode($data);
     }
 
-    public function show()
+    public function show(Request $request)
     {
-        $this->result[0] = ProductDetailModel::findAll($this->filter, $this->options);
+        $this->result[0] = OptionMongodb::aggregate($this->options);
+    }
+
+    public function search()
+    {
     }
 
     public function insert()
@@ -75,5 +114,11 @@ class ProductController extends ControllerApi
 
     public function delete()
     {
+    }
+
+    public static function test()
+    {
+
+        OptionMongodb::aggregate();
     }
 }

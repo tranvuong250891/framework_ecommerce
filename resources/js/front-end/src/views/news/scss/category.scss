@@ -2,7 +2,11 @@
     border: 1px solid;
     padding: 1rem;
     cursor: pointer;
+    position: relative;
     &:hover {
+        top: -2px;
+        left: -2px;
+        // filter: drop-shadow(2px 2px 2px);
         box-shadow: 2px 2px 2px 2px;
     }
     .img {
@@ -13,6 +17,6 @@
     .name-category {
         text-align: center;
         margin-top: 1rem;
-        font-size: 1.5rem;
+        font-size: 1rem;
     }
 }

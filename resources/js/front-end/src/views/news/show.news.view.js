@@ -11,7 +11,7 @@ export const ShowNewsView = async ({ _id }) => {
     El.innerHTML = ` <div class="ctn-detail-news">
             <div class="header">
                 <h1 class="name-title">Tim kiem: </h1>
-                <select name="cars" id="cars">
+                <select >
                     <option value="" >tac ca</option>
                 </select>
             </div>
@@ -21,45 +21,42 @@ export const ShowNewsView = async ({ _id }) => {
         <div class="ctn-right-news">
         </div>`
     const ctnDetailNews = El.querySelector('.ctn-detail-news')
-    const ctnPagination = ctnDetailNews.querySelector('.ctn-pagination')
     const optionNews = ctnDetailNews.querySelector('select')
-
     let categories = await api({ url: '/news', data: { news: { action: "category", } } })
     categories.response.forEach(typeNews => {
         optionNews.innerHTML += `<option value="${typeNews._id['$oid']}">${typeNews.name_category}</option>`
-
     })
-
     optionNews.value = _id ?? ''
     let filter = optionNews.value ? { "matchs.news": optionNews.value } : {}
-
     const changeEl = async (props) => {
-
-        let ctnItemNews = ctnDetailNews.querySelector('.ctn-item-news')
-        ctnItemNews && ctnItemNews.remove()
+        const { filter, skip } = props
+        const ctnPagination = ctnDetailNews.querySelector('.ctn-pagination')
+        ctnDetailNews.querySelector('.ctn-item-news') && ctnDetailNews.querySelector('.ctn-item-news').remove()
         ctnDetailNews.insertBefore(pageLoadding(), ctnPagination)
-        ctnDetailNews.insertBefore(await ItemNewsView(props), ctnPagination)
+        const itemNewsViewEl = await ItemNewsView(props)
+        const ctnItemNews = ctnDetailNews.querySelector('.ctn-item-news')
+        const optionNews = ctnDetailNews.querySelector('select')
+        ctnDetailNews.insertBefore(itemNewsViewEl, ctnPagination)
+        ctnItemNews && ctnItemNews.remove()
         ctnDetailNews.querySelector(".container").remove()
-    }
-
-    changeEl({ filter: filter })
-    optionNews.onclick = async () => {
-
-        let filter = optionNews.value ? { "matchs.news": optionNews.value ?? null } : {}
         let count = await api({ url: "/news", data: { news: { action: "count", filter: filter } } })
         ctnPagination.innerHTML = ``
-        ctnPagination.appendChild(PaginationLibView({ count: Math.ceil(count.response / 3), dataType: optionNews.value ?? '', clickCallback: clickCallback }))
-        await changeEl({ filter: filter, skip: 1 })
+        ctnPagination.appendChild(PaginationLibView({
+            count: Math.ceil(count.response / 3),
+            dataType: optionNews.value ?? '',
+            skip: skip,
+            clickCallback: clickCallback
+        }))
     }
-
     const clickCallback = (value, typeNews) => {
-
+        // console.log(typeNews)
         let filter = optionNews.value ? { "matchs.news": optionNews.value } : {}
         changeEl({ skip: value, filter: filter })
     }
-    // let count = await api({ url: "/news", data: { news: { action: "count", filter: filter } } })
-    console.log(optionNews.value)
-    // ctnPagination.appendChild(PaginationLibView({ count: Math.ceil(count.response / 3), dataType: optionNews.value ?? '', clickCallback: clickCallback }))
-
+    optionNews.onclick = async () => {
+        let filter = optionNews.value ? { "matchs.news": optionNews.value } : {}
+        await changeEl({ filter: filter, skip: 1 })
+    }
+    changeEl({ filter: filter })
     return El
 }

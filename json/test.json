@@ -1,0 +1,129 @@
+[
+    {
+        "_id": {
+            "$oid": "610557ef9f46d7183f72bbac"
+        },
+        "options": [
+            {
+                "_id": {
+                    "$oid": "6105559e9f46d7183f72bbaa"
+                },
+                "types": [
+                    {
+                        "_id": {
+                            "$oid": "610532659f46d7183f72bb8c"
+                        },
+                        "name": "m\u00e0u s\u1eafc",
+                        "value": "v\u00e0ng"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610532b99f46d7183f72bb90"
+                        },
+                        "name": "ram",
+                        "value": "4GB"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610532da9f46d7183f72bb96"
+                        },
+                        "name": "rom",
+                        "value": "64GB"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610533079f46d7183f72bb99"
+                        },
+                        "name": "display",
+                        "value": "FullHD"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610533789f46d7183f72bba0"
+                        },
+                        "name": "cpu",
+                        "value": "A12"
+                    }
+                ],
+                "img": "\/img\/product\/iphone12_1.jpg",
+                "price": 20000000
+            }
+        ],
+        "name": "Iphone 12",
+        "imgs": [
+            "\/img\/product\/iphone12_1.jpg",
+            "\/img\/product\/xiaomi12_2.jpg",
+            "\/img\/product\/xiaomi12_3.jpg"
+        ],
+        "url": {
+            "$oid": "60fc2c524ba15f52be55d0a7"
+        },
+        "category": {
+            "$oid": "6104491c6838ac12f313faca"
+        },
+        "discount": 0.1
+    },
+    {
+        "_id": {
+            "$oid": "60fd11b511ea68d6b576a36e"
+        },
+        "options": [
+            {
+                "_id": {
+                    "$oid": "6105390d9f46d7183f72bba6"
+                },
+                "types": [
+                    {
+                        "_id": {
+                            "$oid": "610532659f46d7183f72bb8c"
+                        },
+                        "name": "m\u00e0u s\u1eafc",
+                        "value": "v\u00e0ng"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610532bc9f46d7183f72bb91"
+                        },
+                        "name": "ram",
+                        "value": "6GB"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610532d49f46d7183f72bb95"
+                        },
+                        "name": "rom",
+                        "value": "32GB"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610533079f46d7183f72bb99"
+                        },
+                        "name": "display",
+                        "value": "FullHD"
+                    },
+                    {
+                        "_id": {
+                            "$oid": "610534079f46d7183f72bba1"
+                        },
+                        "name": "cpu",
+                        "value": "888"
+                    }
+                ],
+                "img": "\/img\/product\/xiaomi11_2.jpg",
+                "price": 9000000
+            }
+        ],
+        "name": "Xiaomi 11",
+        "imgs": [
+            "\/img\/product\/xiaomi11_1.jpg",
+            "\/img\/product\/xiaomi11_2.jpg"
+        ],
+        "url": {
+            "$oid": "60fc2c524ba15f52be55d0a7"
+        },
+        "category": {
+            "$oid": "6104491c6838ac12f313faca"
+        },
+        "discount": 0.1
+    }
+]

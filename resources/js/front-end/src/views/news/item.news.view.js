@@ -6,7 +6,7 @@ require('./scss/item-news.scss')
 
 export const ItemNewsView = async ({ filter = {}, limit = 3, sort = '_id', skip = 1 }) => {
     const El = createEl({ classNames: ['ctn-item-news'] })
-    // console.log(skip)
+
     let res = await api({
         url: '/news',
         data: {

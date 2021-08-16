@@ -1,5 +1,5 @@
 import { html } from '../../lib/html'
-import '../scss/menu.scss'
+import './scss/menu.scss'
 
 const menuEl = document.createElement('div')
 menuEl.id = 'menu'

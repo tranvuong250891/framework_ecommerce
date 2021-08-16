@@ -1,6 +1,6 @@
 import createEl from "../../lib/createEl"
 
-export const ChooseEl = ({ text }) => {
+export const ChooseEl = ({ text, callbackChoose }) => {
     const El = createEl({ classNames: ['choose'] })
     El.innerHTML = text
     El.onclick = () => {
@@ -8,6 +8,7 @@ export const ChooseEl = ({ text }) => {
             choose.classList.remove('active-span')
         })
         El.classList.add('active-span')
+        callbackChoose && callbackChoose()
     }
 
     return El
