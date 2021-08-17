@@ -1,0 +1,35 @@
+.item-news {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    background: var(--bg-b);
+    border-radius: 10px;
+    overflow: hidden;
+
+    .img-news {
+        width: 40%;
+        padding-top: 28%;
+        overflow: hidden;
+    }
+    .content-news {
+        flex: 1;
+        padding: 5px 0 0 1rem;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+
+        .title-news {
+            font-size: 1.5rem;
+            color: var(--text-c);
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .views-news {
+            margin-bottom: 1rem;
+        }
+    }
+    hr {
+        width: 100%;
+        margin-top: 1rem;
+    }
+}

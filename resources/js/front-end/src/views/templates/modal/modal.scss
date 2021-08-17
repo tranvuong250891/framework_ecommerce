@@ -1,0 +1,38 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 1px solid red;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.4);
+    .ctn-content-modal {
+        background-color: #fefefe;
+        margin: 5rem auto;
+        color: black;
+        width: 50%;
+        border-radius: 10px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        h1 {
+            font-size: 1.5rem;
+            text-align: center;
+            background-color: var(--text-btn);
+            color: white;
+            padding: 1rem;
+        }
+        div {
+            margin: 1rem;
+        }
+        .action {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            button {
+                margin-left: 1rem;
+            }
+        }
+    }
+}

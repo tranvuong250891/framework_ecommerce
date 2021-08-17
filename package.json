@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "lodash": "^4.17.21",
+    "webpack-cli": "^4.7.2"
+  }
+}

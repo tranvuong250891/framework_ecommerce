@@ -1,0 +1,21 @@
+{
+    "name": "tranvuong250891/tukemypham",
+    "authors": [
+        {
+            "name": "tranvuong",
+            "email": "tranvuong250891@gmail.com"
+        }
+    ],
+    "description": "tu-ke-my-pham",
+    "autoload": {
+        "psr-4":{
+            "app\\": "./"
+        }
+
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.2",
+        "google/apiclient": "2.0",
+        "mongodb/mongodb": "^1.9"
+    }
+}

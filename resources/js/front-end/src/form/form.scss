@@ -1,0 +1,19 @@
+.form {
+    border: 1px solid;
+    border-radius: 10px;
+    margin: 3rem;
+    padding: 1rem;
+    h1 {
+        text-align: center;
+    }
+    .field {
+        margin: 2rem 0;
+    }
+    a {
+        display: block;
+        text-align: right;
+        &:hover {
+            color: var(--colorActive);
+        }
+    }
+}

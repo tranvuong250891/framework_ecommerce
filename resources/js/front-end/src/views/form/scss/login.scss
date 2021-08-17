@@ -1,0 +1,40 @@
+.form {
+    width: 40rem;
+    background: var(--bg-c);
+    border: none;
+    .field{
+        border-radius: 10px;
+         background: var(--bg-c);
+        input{
+            border:none;
+            background: var(--bg-a);
+            
+        }
+        label{
+            background: var(--bg-a);
+        }
+    }
+}
+.ctn-social {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    h3 {
+        width: 100%;
+
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    button {
+        margin-left: 2rem;
+        .login-social {
+            width: 1.5rem;
+
+            height: 1.5rem;
+        }
+        span {
+            margin-left: 0.5rem;
+        }
+    }
+}
